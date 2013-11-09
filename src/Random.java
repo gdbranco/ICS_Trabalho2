@@ -9,26 +9,49 @@ public class Random extends Oscilador{
 	}
 	public Random(float a,Dispositivo d1)
 	{
-		prepara(a,d1.getSaida());
+		try
+		{
+			prepara(a,d1.getSaida());
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
 	}
 	public Random(Dispositivo d1,float f)
 	{
-		prepara(d1.getSaida(),f);
+		try
+		{
+			prepara(d1.getSaida(),f);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
 	}
 	public Random(float a,float f)
 	{
-		prepara(a,f);
+		try
+		{
+			prepara(a,f);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
 	}
-	public void prepara(float a,float f)
+	public void prepara(float a,float f) throws Exception
 	{
 		Curva curva;
 		if(f<0 || f>512)
 		{
-			//adicionar excecao
+			Exception e = new Exception("Valor alto");
+			throw e;
 		}
 		else if(a<0 || a>66)
 		{
-			//adicionar excecao
+			Exception e = new Exception("Valor alto");
+			throw e;
 		}
 		else
 		{
@@ -45,7 +68,6 @@ public class Random extends Oscilador{
 		}
 		setDispositivoAmplitude(env);
 		setFrequencia(R);
-		//setDispositivoFrequencia(env);
 	}
 	public float calculaR(float f)
 	{
