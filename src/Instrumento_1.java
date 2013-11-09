@@ -14,12 +14,18 @@ public class Instrumento_1 extends Dispositivo{
 		Oscilador o1, o2;
 		
 		curva1 = new Curva(720);     
-	    curva1.addPonto(  0f, 2000f);
+	    curva1.addPonto(0f, 2000f);
+	    curva1.addPonto(30f, 5000f);
+	    curva1.addPonto(80f, 3000f);
+	    curva1.addPonto(320f, 2000f);
+	    curva1.addPonto(540f, 1000f);
+	    curva1.addPonto(680f, 148.8);
 	    curva1.addPonto(720f, 0f);
 	    
 	    curva2 = new Curva(720);     
 	    curva2.addPonto(0f, 0f);
 	    curva2.addPonto(30f, 1000f);
+	    curva2.addPonto(257f, 8000f);
 	    curva2.addPonto(600f, 300f);
 	    curva2.addPonto(720f, 0f);     
 	    

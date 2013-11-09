@@ -6,7 +6,7 @@ public class main {
 		//amp_mod.start();
 		//Instrumento_2 freq_mod = new Instrumento_2();
 		//freq_mod.start();
-		Instrumento_3 periodic = new Instrumento_3();
-		periodic.start();
+		//Instrumento_3 periodic = new Instrumento_3();
+		//periodic.start();
 	}
 }
