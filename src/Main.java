@@ -1,5 +1,5 @@
 import sintese.*;
-public class main {
+public class Main {
 	public static void main(String[] args)
 	{
 		//Instrumento_1 amp_mod = new Instrumento_1();
