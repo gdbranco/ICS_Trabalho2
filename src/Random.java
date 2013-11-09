@@ -3,34 +3,33 @@ public class Random extends Oscilador{
 	//float Amplitude;
 	float R = 512;
 	Envoltoria env = new Envoltoria();
-	public enum errors{
-		no_error,highValue;
-	}
 	public Random()
 	{
 		super();
 	}
-	public Random(Dispositivo d1)
+	public Random(float a,Dispositivo d1)
 	{
-		prepara(33,d1.getSaida());
+		prepara(a,d1.getSaida());
+	}
+	public Random(Dispositivo d1,float f)
+	{
+		prepara(d1.getSaida(),f);
 	}
 	public Random(float a,float f)
 	{
-		switch(prepara(a,f))
-		{
-		case highValue:
-			System.out.println("Erro");
-		case no_error:
-			System.out.println("Sem erro");
-		}
+		prepara(a,f);
 	}
-	public errors prepara(float a,float f)
+	public void prepara(float a,float f)
 	{
 		Curva curva;
 		if(f<0 || f>512)
-			return errors.highValue;
+		{
+			//adicionar excecao
+		}
 		else if(a<0 || a>66)
-			return errors.highValue;
+		{
+			//adicionar excecao
+		}
 		else
 		{
 			curva = new Curva(511);
@@ -47,18 +46,16 @@ public class Random extends Oscilador{
 		setDispositivoAmplitude(env);
 		setFrequencia(R);
 		//setDispositivoFrequencia(env);
-		return errors.no_error;
 	}
 	public float calculaR(float f)
 	{
 		double n = Math.random();
 		return (float) ((Math.pow(-1, (int)(n*10))*n)*((R*f)/1024));
 	}
-	public static void main(String[] args)
+	public void start()
 	{
-		Random teste = new Random(33,256);
-		System.out.println(teste.getSaida()/10000);
-		Som som = new Som(teste,5f,"teste");
+		System.out.println(getSaida()/10000);
+		Som som = new Som(this,5f,"teste");
 		som.visualiza();
 	}
 }

@@ -36,7 +36,7 @@ public class Instrumento_1 extends Dispositivo{
 	    env2.setGanho(3);
 	    o1 = new Oscilador(env1);
 	    o1.setFrequencia(180);
-	    gerador_ruido = new Random(o1);
+	    gerador_ruido = new Random(33,o1);
 	    o2 = new Oscilador(gerador_ruido, env2);
 	    som = new Som(o2,10f,"teste");
 	}

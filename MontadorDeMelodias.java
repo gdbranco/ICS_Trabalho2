@@ -1,3 +1,5 @@
+package player;
+
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -116,6 +118,7 @@ public class MontadorDeMelodias {
 						"Fase" }) {
 			Class[] columnTypes = new Class[] { Integer.class, Float.class,
 					Float.class, Float.class, Float.class };
+
 			@Override
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
