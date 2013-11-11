@@ -5,8 +5,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Track;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -30,6 +37,7 @@ public class MontadorDeMelodias {
 	// so Globals , much program
 	JFrame frame = new JFrame();
 	public JTable TabelaNotas = new JTable();
+	JButton btnParseMidi = new JButton("Parse Midi");
 	JLabel lblAmplitude = new JLabel("Amplitude");
 	JLabel lblFrequencia = new JLabel("Frequencia");
 	JLabel lblDuracao = new JLabel("Duracao");
@@ -308,7 +316,43 @@ public class MontadorDeMelodias {
 		JLabel lblHarmnico = new JLabel("Harmônico");
 		lblHarmnico.setBounds(10, 293, 81, 14);
 		frame.getContentPane().add(lblHarmnico);
+
+		JButton btnParseMidi = new JButton("Parse Midi");
+		btnParseMidi.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					parseMidi();
+				} catch (InvalidMidiDataException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnParseMidi.setBounds(294, 318, 120, 40);
+		frame.getContentPane().add(btnParseMidi);
 		TabelaNotas.getColumnModel().getColumn(4).setPreferredWidth(76);
+	}
+
+	public void parseMidi() throws InvalidMidiDataException, IOException {
+		File arq = new File("./midis/");
+		JFileChooser escolha = new JFileChooser();
+		escolha.setCurrentDirectory(arq);
+		escolha.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		escolha.showOpenDialog(btnParseMidi);
+		Sequence s = MidiSystem.getSequence(new File(escolha.getSelectedFile()
+				.toString()));
+		Track[] trilhas = s.getTracks();
+		for (Track track : trilhas) {
+			int k;
+			for (k = 0; k < track.size(); k++) {
+				// buscar em cada menságem , duração , amplitude , frequencia ,
+				// fase
+				// realizar as chamadas , uma unidade H para cada track, simples
+				// de fazer
+			}
+		}
 	}
 
 	public void play1() {
