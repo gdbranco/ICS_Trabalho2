@@ -188,6 +188,5 @@ public class MontadorDeMelodias {
 				(Float) AmplitudeSpinner.getValue(), (Float) FrequenciaSpinner
 						.getValue(), (Float) FaseSpinner.getValue()));
 		numeroNotas++;
-		System.out.println("ok");
 	}
 }
