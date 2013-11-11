@@ -1,4 +1,6 @@
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,10 +15,12 @@ import javax.swing.table.DefaultTableModel;
 
 import sintese.Melodia;
 import sintese.Nota;
+import sintese.Som;
 
 public class MontadorDeMelodias {
 
-	Melodia melodia = new Melodia();
+	Instrumento_1 ins1 = new Instrumento_1();
+	public Melodia melodia = new Melodia();
 	int numeroNotas = 0;
 	// Whutup Globals
 	JFrame frame = new JFrame();
@@ -116,12 +120,35 @@ public class MontadorDeMelodias {
 						"Fase" }) {
 			Class[] columnTypes = new Class[] { Integer.class, Float.class,
 					Float.class, Float.class, Float.class };
+
 			@Override
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		});
+
+		JButton btnPlay = new JButton("Play 1");
+		btnPlay.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				play();
+			}
+		});
+		btnPlay.setBounds(10, 160, 89, 23);
+		frame.getContentPane().add(btnPlay);
 		TabelaNotas.getColumnModel().getColumn(4).setPreferredWidth(76);
+	}
+
+	public void play() {
+		Som som1 = melodia.getSom(ins1);
+		melodia.addNota(new Nota((Float) DuracaoSpinner.getValue(),
+				(Float) AmplitudeSpinner.getValue(), (Float) FrequenciaSpinner
+						.getValue(), (Float) FaseSpinner.getValue()));
+		som1.visualiza();
+		int j;
+		for (j = 0; j < melodia.getNumeroDeNotas(); j++) {
+			System.out.println(melodia.getNota(j).getFrequencia());
+		}
 	}
 
 	public void listenerAdd() {
@@ -135,5 +162,6 @@ public class MontadorDeMelodias {
 				(Float) AmplitudeSpinner.getValue(), (Float) FrequenciaSpinner
 						.getValue(), (Float) FaseSpinner.getValue()));
 		numeroNotas++;
+		System.out.println("ok");
 	}
 }

@@ -1,47 +1,60 @@
-import sintese.*;
-public class Instrumento_1 extends Dispositivo{
+import sintese.Curva;
+import sintese.Envoltoria;
+import sintese.InstrumentoAditivo;
+import sintese.Oscilador;
+import sintese.Som;
+import sintese.UnidadeH;
+
+public class Instrumento_1 extends InstrumentoAditivo {
 	Random gerador_ruido;
 	Som som;
-	public Instrumento_1()
-	{
+
+	public Instrumento_1() {
 		prepara();
 	}
-	public void prepara()
-	{
-		Curva        curva1, curva2;
-		Envoltoria   env1   = new Envoltoria();   
-		Envoltoria   env2   = new Envoltoria();   
+
+	public void prepara() {
+		Curva curva1, curva2;
+		Envoltoria env1 = new Envoltoria();
+		Envoltoria env2 = new Envoltoria();
 		Oscilador o1, o2;
-		
-		curva1 = new Curva(720);     
-	    curva1.addPonto(0f, 2000f);
-	    curva1.addPonto(30f, 5000f);
-	    curva1.addPonto(80f, 3000f);
-	    curva1.addPonto(320f, 2000f);
-	    curva1.addPonto(540f, 1000f);
-	    curva1.addPonto(680f, 148.8);
-	    curva1.addPonto(720f, 0f);
-	    
-	    curva2 = new Curva(720);     
-	    curva2.addPonto(0f, 0f);
-	    curva2.addPonto(30f, 1000f);
-	    curva2.addPonto(257f, 8000f);
-	    curva2.addPonto(600f, 300f);
-	    curva2.addPonto(720f, 0f);     
-	    
 
-	    env1.setCURVA(curva1);      
-	    env2.setCURVA(curva2);     
+		curva1 = new Curva(720);
+		curva1.addPonto(0f, 2000f);
+		curva1.addPonto(30f, 5000f);
+		curva1.addPonto(80f, 3000f);
+		curva1.addPonto(320f, 2000f);
+		curva1.addPonto(540f, 1000f);
+		curva1.addPonto(680f, 148.8);
+		curva1.addPonto(720f, 0f);
 
-	    env2.setGanho(3);
-	    o1 = new Oscilador(env1);
-	    o1.setFrequencia(180);
-	    gerador_ruido = new Random(33,o1);
-	    o2 = new Oscilador(gerador_ruido, env2);
-	    som = new Som(o2,10f,"teste");
+		curva2 = new Curva(720);
+		curva2.addPonto(0f, 0f);
+		curva2.addPonto(30f, 1000f);
+		curva2.addPonto(257f, 8000f);
+		curva2.addPonto(600f, 300f);
+		curva2.addPonto(720f, 0f);
+
+		env1.setCURVA(curva1);
+		env2.setCURVA(curva2);
+		env2.setGanho(3);
+
+		UnidadeH uh1 = new UnidadeH();
+		uh1.setEnvoltoria(env1);
+		uh1.setH(1);
+		uh1.setLambda(0.5f);
+		uh1.setFase(90f);
+		uh1.setGanho(4);
+		this.addUnidade(uh1);
+
+		o1 = new Oscilador(env1);
+		o1.setFrequencia(180);
+		gerador_ruido = new Random(33, o1);
+		o2 = new Oscilador(gerador_ruido, env2);
+		som = new Som(o2, 10f, "teste");
 	}
-	public void start()
-	{
+
+	public void start() {
 		som.visualiza();
 	}
 }
