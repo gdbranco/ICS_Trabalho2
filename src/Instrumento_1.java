@@ -41,10 +41,10 @@ public class Instrumento_1 extends InstrumentoAditivo {
 
 		UnidadeH uh1 = new UnidadeH();
 		uh1.setEnvoltoria(env1);
-		uh1.setH(1);
+		uh1.setH(2);
 		uh1.setLambda(0.5f);
-		uh1.setFase(90f);
-		uh1.setGanho(4);
+		uh1.setFase(0f);
+		uh1.setGanho(1);
 		this.addUnidade(uh1);
 
 		o1 = new Oscilador(env1);

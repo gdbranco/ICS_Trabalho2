@@ -20,9 +20,12 @@ import sintese.Som;
 public class MontadorDeMelodias {
 
 	Instrumento_1 ins1 = new Instrumento_1();
+	Instrumento_2 ins2 = new Instrumento_2();
+	Instrumento_3 ins3 = new Instrumento_3();
+
 	public Melodia melodia = new Melodia();
 	int numeroNotas = 0;
-	// Whutup Globals
+	// so Globals , much program
 	JFrame frame = new JFrame();
 	public JTable TabelaNotas = new JTable();
 	JLabel lblAmplitude = new JLabel("Amplitude");
@@ -34,6 +37,8 @@ public class MontadorDeMelodias {
 	JSpinner AmplitudeSpinner = new JSpinner();
 	JSpinner FaseSpinner = new JSpinner();
 	JButton NovaNotaBtn = new JButton("Nova Nota");
+	private final JButton btnPlay_1 = new JButton("Play 2");
+	private final JButton btnPlay_2 = new JButton("Play 3");
 
 	/**
 	 * Launch the application.
@@ -131,24 +136,45 @@ public class MontadorDeMelodias {
 		btnPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				play();
+				play1();
 			}
 		});
 		btnPlay.setBounds(10, 160, 89, 23);
 		frame.getContentPane().add(btnPlay);
+		btnPlay_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				play2();
+			}
+		});
+		btnPlay_1.setBounds(10, 194, 89, 23);
+
+		frame.getContentPane().add(btnPlay_1);
+		btnPlay_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				play3();
+			}
+		});
+		btnPlay_2.setBounds(10, 228, 89, 23);
+
+		frame.getContentPane().add(btnPlay_2);
 		TabelaNotas.getColumnModel().getColumn(4).setPreferredWidth(76);
 	}
 
-	public void play() {
+	public void play1() {
 		Som som1 = melodia.getSom(ins1);
-		melodia.addNota(new Nota((Float) DuracaoSpinner.getValue(),
-				(Float) AmplitudeSpinner.getValue(), (Float) FrequenciaSpinner
-						.getValue(), (Float) FaseSpinner.getValue()));
 		som1.visualiza();
-		int j;
-		for (j = 0; j < melodia.getNumeroDeNotas(); j++) {
-			System.out.println(melodia.getNota(j).getFrequencia());
-		}
+	}
+
+	public void play2() {
+		Som som2 = melodia.getSom(ins2);
+		som2.visualiza();
+	}
+
+	public void play3() {
+		Som som3 = melodia.getSom(ins3);
+		som3.visualiza();
 	}
 
 	public void listenerAdd() {
