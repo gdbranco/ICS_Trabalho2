@@ -2,13 +2,11 @@ import sintese.Curva;
 import sintese.Envoltoria;
 import sintese.InstrumentoAditivo;
 import sintese.Oscilador;
-import sintese.Som;
 import sintese.Somador;
 import sintese.UnidadeH;
 
 public class Instrumento_3 extends InstrumentoAditivo {
 	Random gerador_ruido;
-	Som som;
 
 	public Instrumento_3() {
 		prepara();
@@ -49,10 +47,5 @@ public class Instrumento_3 extends InstrumentoAditivo {
 		gerador_ruido = new Random();
 		Somador soma = new Somador(o3, gerador_ruido);
 		o2 = new Oscilador(o1, soma);
-		som = new Som(o2, 10f, "teste");
-	}
-
-	public void start() {
-		som.visualiza();
 	}
 }

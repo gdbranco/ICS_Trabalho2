@@ -5,17 +5,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
@@ -37,7 +31,6 @@ public class MontadorDeMelodias {
 	// so Globals , much program
 	JFrame frame = new JFrame();
 	public JTable TabelaNotas = new JTable();
-	JButton btnParseMidi = new JButton("Parse Midi");
 	JLabel lblAmplitude = new JLabel("Amplitude");
 	JLabel lblFrequencia = new JLabel("Frequencia");
 	JLabel lblDuracao = new JLabel("Duracao");
@@ -79,7 +72,7 @@ public class MontadorDeMelodias {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame.setBounds(100, 100, 698, 497);
+		frame.setBounds(100, 100, 795, 514);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -95,23 +88,23 @@ public class MontadorDeMelodias {
 		lblFase.setBounds(10, 101, 46, 14);
 		frame.getContentPane().add(lblFase);
 
-		DuracaoSpinner.setModel(new SpinnerNumberModel(new Float(0), null,
-				null, new Float(1)));
+		DuracaoSpinner.setModel(new SpinnerNumberModel(new Double(0), null,
+				null, new Double(1)));
 		DuracaoSpinner.setBounds(101, 73, 39, 20);
 		frame.getContentPane().add(DuracaoSpinner);
 
-		FrequenciaSpinner.setModel(new SpinnerNumberModel(new Float(0), null,
-				null, new Float(100)));
+		FrequenciaSpinner.setModel(new SpinnerNumberModel(new Double(0), null,
+				null, new Double(100)));
 		FrequenciaSpinner.setBounds(84, 48, 56, 20);
 		frame.getContentPane().add(FrequenciaSpinner);
 
-		AmplitudeSpinner.setModel(new SpinnerNumberModel(new Float(0), null,
-				null, new Float(5)));
+		AmplitudeSpinner.setModel(new SpinnerNumberModel(new Double(0), null,
+				null, new Double(5)));
 		AmplitudeSpinner.setBounds(94, 23, 46, 20);
 		frame.getContentPane().add(AmplitudeSpinner);
 
-		FaseSpinner.setModel(new SpinnerNumberModel(new Float(0), null, null,
-				new Float(1)));
+		FaseSpinner.setModel(new SpinnerNumberModel(new Double(0), null, null,
+				new Double(1)));
 		FaseSpinner.setBounds(101, 98, 39, 20);
 		frame.getContentPane().add(FaseSpinner);
 		NovaNotaBtn.addKeyListener(new KeyAdapter() {
@@ -130,7 +123,7 @@ public class MontadorDeMelodias {
 		frame.getContentPane().add(NovaNotaBtn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(173, 11, 486, 296);
+		scrollPane.setBounds(180, 11, 486, 296);
 		frame.getContentPane().add(scrollPane);
 		scrollPane.setViewportView(TabelaNotas);
 
@@ -142,11 +135,8 @@ public class MontadorDeMelodias {
 			Class[] columnTypes = new Class[] { Integer.class, Float.class,
 					Float.class, Float.class, Float.class };
 
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
 		});
+		TabelaNotas.getColumnModel().getColumn(4).setPreferredWidth(76);
 
 		JButton btnPlay = new JButton("Play 1");
 		btnPlay.addActionListener(new ActionListener() {
@@ -317,43 +307,30 @@ public class MontadorDeMelodias {
 		lblHarmnico.setBounds(10, 293, 81, 14);
 		frame.getContentPane().add(lblHarmnico);
 
-		JButton btnParseMidi = new JButton("Parse Midi");
-		btnParseMidi.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					parseMidi();
-				} catch (InvalidMidiDataException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		btnParseMidi.setBounds(294, 318, 120, 40);
-		frame.getContentPane().add(btnParseMidi);
-		TabelaNotas.getColumnModel().getColumn(4).setPreferredWidth(76);
+		JPanel panelKeysNotas = new JPanel();
+		panelKeysNotas.setBounds(10, 318, 263, 92);
+		frame.getContentPane().add(panelKeysNotas);
 	}
 
-	public void parseMidi() throws InvalidMidiDataException, IOException {
-		File arq = new File("./midis/");
-		JFileChooser escolha = new JFileChooser();
-		escolha.setCurrentDirectory(arq);
-		escolha.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		escolha.showOpenDialog(btnParseMidi);
-		Sequence s = MidiSystem.getSequence(new File(escolha.getSelectedFile()
-				.toString()));
-		Track[] trilhas = s.getTracks();
-		for (Track track : trilhas) {
-			int k;
-			for (k = 0; k < track.size(); k++) {
-				// buscar em cada menságem , duração , amplitude , frequencia ,
-				// fase
-				// realizar as chamadas , uma unidade H para cada track, simples
-				// de fazer
-			}
-		}
-	}
+	// public void parseMidi() throws InvalidMidiDataException, IOException {
+	// File arq = new File("./midis/");
+	// JFileChooser escolha = new JFileChooser();
+	// escolha.setCurrentDirectory(arq);
+	// escolha.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	// escolha.showOpenDialog(btnParseMidi);
+	// Sequence s = MidiSystem.getSequence(new File(escolha.getSelectedFile()
+	// .toString()));
+	// Track[] trilhas = s.getTracks();
+	// for (Track track : trilhas) {
+	// int k;
+	// for (k = 0; k < track.size(); k++) {
+	// // buscar em cada menságem , duração , amplitude , frequencia ,
+	// // fase
+	// // realizar as chamadas , uma unidade H para cada track, simples
+	// // de fazer
+	// }
+	// }
+	// }
 
 	public void play1() {
 		Som som1 = melodia.getSom(ins1);
@@ -371,15 +348,17 @@ public class MontadorDeMelodias {
 	}
 
 	public void listenerAdd() {
+		Double duracao = (Double) DuracaoSpinner.getValue();
+		Double amp = (Double) AmplitudeSpinner.getValue();
+		Double freq = (Double) FrequenciaSpinner.getValue();
+		Double fase = (Double) FaseSpinner.getValue();
+
 		DefaultTableModel model = (DefaultTableModel) TabelaNotas.getModel();
-		model.addRow(new Object[] { numeroNotas,
-				(Float) DuracaoSpinner.getValue(),
-				(Float) AmplitudeSpinner.getValue(),
-				(Float) FrequenciaSpinner.getValue(),
-				(Float) FaseSpinner.getValue() });
-		melodia.addNota(new Nota((Float) DuracaoSpinner.getValue(),
-				(Float) AmplitudeSpinner.getValue(), (Float) FrequenciaSpinner
-						.getValue(), (Float) FaseSpinner.getValue()));
+		model.addRow(new Object[] { numeroNotas, DuracaoSpinner.getValue(),
+				AmplitudeSpinner.getValue(), FrequenciaSpinner.getValue(),
+				FaseSpinner.getValue() });
+		melodia.addNota(new Nota(duracao.floatValue(), amp.floatValue(), freq
+				.floatValue(), fase.floatValue()));
 		numeroNotas++;
 	}
 }
